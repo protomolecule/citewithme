@@ -1,0 +1,166 @@
+
+
+
+<div class="row-fluid cwmcont">
+ <div class="row">
+	<div id="cwm-sidebar" class="span3 swell">
+		<p id="notice"><%= notice %></p>	
+		
+		<p class="lead">Current source:</p>
+	<p><b>— <%= @sauce.author %></b> (<%= @sauce.year %>): <%= @sauce.title %>.
+	</p>
+<p>
+
+</p>		
+			
+		<p class="lead">How to add cites:</p>
+		<dl class="dl-horizontal">
+			<dt><i class="icon-font"></i></dt><dd><strong>Type</strong> or <strong>copy</strong> your citation into the textfield below.</dd>
+			<dt><i class="icon-tag"></i></dt><dd>Use <strong>#</strong> to mark #words oder #short_sentences as <strong>#tags</strong>.</dd>
+			<dt><i class="icon-book"></i></dt><dd>End your citation with <strong>^</strong> followed by one or more <strong>page numbers</strong> (e.g. ^2) </dd>
+			<dt><i class="icon-ok-circle"></i></dt><dd><strong>Press Enter</strong> to save the citation and clear the textfield.</dd>
+			<dt><i class="icon-bold"></i></dt><dd>Type of copy your next citation into the texfield...</dd>
+		</dl>
+	
+		
+			
+	</div>  
+	
+	<div id="cwm-textareadiv" class="span3">
+	<%= form_for(@cite, :remote => true) do |g| %>
+	<span class="ajax_message">&nbsp;</span><br>	
+	    <%= g.text_area :content,  :class => "span12 well", :id => "mytextarea", :cols => 10, :rows => 60 %>
+	   <%= g.hidden_field :sauce_id, :value => @sauce.id %><%= g.hidden_field :page, :value => "No Page" %>
+
+	<% end %>
+	</div>
+ 
+	<div id="foo" class="span5 ">
+		
+			<% @cites.each do |cite| %>
+			<blockquote id="blockquote<%= cite.id %>" class="blockquotecite">
+				<p><%= cite.content %></p>
+				<small><%= cite.sauce.author %> (<%= cite.sauce.year %>), p. <%= cite.page %>.</small><span style="display: none; "><%= link_to 'Edit', edit_cite_path(cite) %> - <a href="/cites/<%= cite.id %>"  data-method="delete" data-remote="true" rel="nofollow" onclick="destroyblockquote(this)">Destroy</a></span>
+			</blockquote>
+			<% end %>
+		
+	</div>	
+		
+</div>
+<br>
+    </div>   
+
+	<script>
+	var hashtag_regexp = /#([a-züöäÜÖÄßA-Z0-9_]+)/g;
+	var page_regexp = /\^([a-züöäÜÖÄßA-Z0-9_-]+)/g;
+	var amyglob = ""
+
+
+	$('#mytextarea').keypress(function(e){
+		  if(e.keyCode == 13 && !e.shiftKey) {
+		   e.preventDefault();
+
+
+		   getnewcite();		
+			$(this).val('');
+		  }
+		});
+	function activate_blockquote(){
+	$("blockquote").mouseover(function() {
+	    	$(this).find("span").show();
+			$(this).addClass("blockquoteactive")
+	  }).mouseout(function(){
+	    	$(this).find("span").hide();
+			$(this).removeClass("blockquoteactive")
+	});
+	};
+	
+	activate_blockquote();
+
+	function linkHashtags(text) {
+	    return text.replace(
+	        hashtag_regexp,
+	        '<a class="hashtag" href="/cites/search?search=%23$1">#$1</a>'
+	    );
+	}
+
+	$('#mytextarea').focus(function() {
+	  scrollfoodown ();
+	});
+	$('#foo').ready(function(){
+	    $('p').each(function() {
+	        $(this).html(linkHashtags($(this).html()));
+	    });
+	});
+
+	function getnewcite () {
+		$('span.ajax_message').html('saving...');
+	var mytextareaval = $('textarea#mytextarea').val().replace(/\n\r?/g, '<br />');
+	var mysauce = "<%= @sauce.author %>"+" (<%= @sauce.year %>)";
+	//var mypage = $("input#cite_page").val();
+	//var mypagearray = [666]
+	var mypagearray = []
+	var mypage = ""
+	var Ergebnis = $('textarea#mytextarea').val().match(page_regexp);
+	if(Ergebnis){
+		mypagearray = $('textarea#mytextarea').val().match(page_regexp);
+	}else{
+		mypagearray[0] = "N.N"
+	}
+	// Wenn mehr als eine Fundstelle:
+	if (mypagearray.length >1){
+		//Cycle durch den Array und hänge Werte + ", " an.
+		mypagearray.forEach( function(s) { 
+			mypage += s + ", "
+			} )
+			// Entferne die ^
+			mypage = mypage.replace(/\^/g, '');
+			// Entferne das letzte ", "
+			mypage = mypage.slice(0, -2)
+	}else{
+		// Wenn nur eine Fundstelle: Entferne das ^
+		mypage = mypagearray[mypagearray.length-1].replace(/\^/g, '');}
+	
+	
+		mytextareaval = mytextareaval.replace(page_regexp, '')
+	// repopulate the form fields...
+		$("input#cite_page").val(mypage);
+		var newtextareaval = $('textarea#mytextarea').val().replace(page_regexp, '')
+		$('textarea#mytextarea').val(newtextareaval)
+	
+		$.ajax({
+		    type: 'POST',
+		    url: "/cites",
+		async: false,
+		    data: $('form').serialize(),
+			dataType: "json",
+		    complete: function(data){
+			var temp = JSON.parse(data.responseText);
+			amyglob = temp.id;
+			  $('span.ajax_message').html("");
+			  // Hier sollte ich die ID abfragen, die aus dem controller zurück kommen...
+			//Zuweisung klappt noch nicht. Manchmal scheinbar schon, manchmal nicht...
+			amyglob = temp.id;
+			amyglob = temp.id;
+		    },		       
+		    });
+	
+	
+	
+	var newcite = "<blockquote id='blockquote" + amyglob + "' class='blockquotecite'><p>" + mytextareaval + "</p>" + "<small>" + mysauce + ", p. " + mypage + ".</small><span style='display: none;' ><a href='/cites/" + amyglob + "/edit''>Edit</a> - <a href='/cites/" + amyglob + "'  data-method='delete' data-remote='true' rel='nofollow' onclick='destroyblockquote(this)'>Destroy</a></span></blockquote>";
+	newcite = linkHashtags(newcite);
+	$(newcite).prependTo("#foo");
+	activate_blockquote();
+
+
+	};
+
+	function destroyblockquote (bq) {
+		//Problem: Er macht das auch, wenn man den Löschdialog abbricht...
+		//Lösung: Den ganzen Ajax-Kram hier explizit ausformulieren und auf Ergebnis warten :-)
+		//$(bq).remove();
+		var hugo = $(bq).parent().parent();
+		hugo.remove();
+	};
+
+	</script>

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Content:</b>
+  <%= @cite.content %>
+</p>
+
+<p>
+  <b>Page:</b>
+  <%= @cite.page %>
+</p>
+
+
+<%= link_to 'Edit', edit_cite_path(@cite) %> |
+<%= link_to 'Back', cites_path %>

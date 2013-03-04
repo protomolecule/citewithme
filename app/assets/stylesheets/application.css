@@ -1,0 +1,127 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+*/
+
+.blockquoteactive {
+	background-color:#F2F2F2 !important;
+	border-left: 5px solid gray !important;
+/*	margin-bottom:20px;*/
+}
+
+.blockquotecite span {
+	float:right;
+	margin-top:-21px;
+	margin-right:10px;
+}
+
+#logo { 
+    font-size: 20px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    float: left;
+    padding: 10px;
+}
+
+a.brand {
+	
+}
+
+a.brand span {
+	color:#00FFFF;
+}
+body { padding-top: 60px; }
+footer { margin-top: 100px; }
+table, td, th { vertical-align: middle !important; border: none !important; }
+th { border-bottom: 1px solid #DDD !important; }
+td.picture { width: 140px; }
+td.picture img { width: 140px; }#
+div.cwmcont {
+	background-color:gray !important;
+}
+
+.swell {	
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  /*border: 2px solid rgba(0, 0, 0, 0.05);*/
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  /*-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);*/
+}
+
+div#cwm-sidebar {
+	position:fixed;
+}
+
+.dl-horizontal dt {
+  float: left;
+  width: 20px !important;
+  overflow: hidden;
+  clear: left;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left:-10px !important;
+}
+
+.dl-horizontal dd {
+  margin-left: 20px !important;
+  margin-bottom:20px;
+}
+
+.pre-scrollable {
+  max-height: 550px !important;
+  overflow-y: scroll;
+  padding-right:20px;
+}
+#mytextarea {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 22.5px;
+height:560px;
+padding: 10px 10px 10px 10px;
+margin-top: -18px;
+/*border-left: 5px solid #eeeeee;*/
+}
+
+div#cwm-textareadiv {
+	position:fixed;
+	margin-left:310px;
+}
+
+div#foo {
+	margin-left:620px;
+}
+
+footer {
+	background-color:black;
+	height:100px;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

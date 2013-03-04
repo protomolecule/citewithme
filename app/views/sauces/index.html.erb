@@ -1,0 +1,27 @@
+<h1>Listing sources</h1>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Author</th>
+    <th>Title</th>
+    <th>Year</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sauces.each do |sauce| %>
+  <tr>
+    <td><%= sauce.author %> (<%= sauce.cites.count %>)</td>
+    <td><%= sauce.title %></td>
+    <td><%= sauce.year %></td>
+    <td><%= link_to 'Add cites', sauce %></td>
+    <td><%= link_to 'Edit', edit_sauce_path(sauce) %></td>
+    <td><%= link_to 'Destroy', sauce, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sauce', new_sauce_path %>

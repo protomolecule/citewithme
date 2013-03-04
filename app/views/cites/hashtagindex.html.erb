@@ -1,0 +1,37 @@
+<div id="foo" class="span5 ">
+	
+		<% @cites.each do |cite| %>
+		<blockquote id="blockquote<%= cite.id %>" class="blockquotecite">
+			<p><%= cite.content %></p>
+			<small><%= cite.sauce.author %> (<%= cite.sauce.year %>), p. <%= cite.page %>.</small><span style="display: none; "><%= link_to 'Edit', edit_cite_path(cite) %> - <a href="/cites/<%= cite.id %>" data-confirm="Are you sure?" data-method="delete" data-remote="true" rel="nofollow" onclick="destroyblockquote('blockquote#blockquote<%= cite.id %>')">Destroy</a></span>
+		</blockquote>
+		<% end %>
+	
+</div>
+
+<script>
+var hashtag_regexp = /#([a-züöäÜÖÄßA-Z0-9_]+)/g;
+var page_regexp = /\^([a-züöäÜÖÄßA-Z0-9_-]+)/g;
+
+	$("blockquote.blockquotecite").mouseover(function() {
+	    	$(this).find("span").show();
+			$(this).addClass("blockquoteactive")
+	  }).mouseout(function(){
+	    	$(this).find("span").hide();
+			$(this).removeClass("blockquoteactive")
+	});
+	
+	function linkHashtags(text) {
+	    return text.replace(
+	        hashtag_regexp,
+	        '<a class="hashtag" href="/cites/search?search=%23$1">#$1</a>'
+	    );
+	}
+	
+	$('#foo').ready(function(){
+	    $('p').each(function() {
+	        $(this).html(linkHashtags($(this).html()));
+	    });
+	});
+	
+</script>

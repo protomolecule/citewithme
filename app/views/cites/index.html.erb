@@ -1,0 +1,39 @@
+<div class="row-fluid cwmcont">
+ <div class="row">
+	<div id="cwm-sidebar" class="span3 swell">
+		<p class="lead"><%= @myvar %></p>
+		<dl class="dl-horizontal">
+			<dt><i class="icon-font"></i></dt><dd><strong>Type</strong> or <strong>copy</strong> your citation into the textfield below.</dd>
+			<dt><i class="icon-tag"></i></dt><dd>Use <strong>#</strong> to mark #words oder #short_sentences as <strong>#tags</strong>.</dd>
+			<dt><i class="icon-book"></i></dt><dd>End your citation with <strong>^</strong> followed by one or more <strong>page numbers</strong> (e.g. ^2) </dd>
+			<dt><i class="icon-ok-circle"></i></dt><dd><strong>Press Enter</strong> to save the citation and clear the textfield.</dd>
+			<dt><i class="icon-bold"></i></dt><dd>Type or copy your next citation into the texfield...</dd>
+		</dl>	
+		<ul style="list-style:none;">
+		<% @hashtags.take(10).each do |ht| %>
+			<li>
+				<a href="/cites/ht/%23<%= ht.first %>">
+					#<%= ht.first %>
+				</a>	
+			</li>
+		<% end %>
+		</ul>	
+	</div>  
+	
+	<%= render 'form' %>
+ 
+	<div id="foo" class="span5 ">
+		
+			<% @cites.each do |cite| %>
+			<blockquote class="blockquotecite">
+				<p><%= cite.content %></p>
+				<small><%= cite.sauce_id %>, p. <%= cite.page %>.</small><span style="display: none; "><%= link_to 'Edit', edit_cite_path(cite) %> - <%= link_to 'Destroy', cite, confirm: 'Are you sure?', method: :delete %></span>
+			</blockquote>
+			<% end %>
+		
+	</div>	
+		
+</div>
+<br>
+    </div>   
+

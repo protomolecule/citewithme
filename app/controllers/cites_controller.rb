@@ -1,0 +1,128 @@
+# encoding: UTF-8
+class CitesController < ApplicationController
+  # GET /cites
+  # GET /cites.json
+  def index
+    @cites = Cite.all.reverse
+    @cite = Cite.new
+    @myvar = "That's how it works:"
+    @hashtags = []
+    @cites.each  do |c| 
+      if c.content.include?("#")
+        ht = c.content.scan(/#([a-züöäÜÖÄßA-Z0-9_]+)/)
+        ht.each {|h| @hashtags.push(h).uniq!}
+
+ #       @hashtags.push(c.content.scan(/#([a-zA-Z0-9_]+)/))
+      end  
+    end  
+      
+    
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @cites }
+    end
+  end
+
+  def hashtagindex
+    @cites = Cite.search params[:search]
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @cites }
+    end
+  end
+    
+
+  # GET /cites/1
+  # GET /cites/1.json
+  def show
+    @cite = Cite.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @cite }
+    end
+  end
+
+  # GET /cites/new
+  # GET /cites/new.json
+  def new
+    @cite = Cite.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @cite }
+    end
+  end
+
+  # Nach Tutorial:
+
+  def ajaxcreate  
+    @cite = Cite.new(params[:cite])
+    
+    # Irgendwie muss die neue ID zurück geschickt werden!!!
+    
+    respond_to do |format|
+      if @cite.save
+        #format.html { redirect_to(cites_url, 
+        #              :notice => 'cite was successfully created.', :cite_id => @cite.id) }
+        #format.js
+      else
+        format.html { redirect_to(cites_url) }
+      end
+    end
+  end
+  
+  
+  # GET /cites/1/edit
+  def edit
+    @cite = Cite.find(params[:id])
+  end
+
+  # POST /cites
+  # POST /cites.json
+  def create
+    @cite = Cite.new(params[:cite])
+
+    respond_to do |format|
+      if @cite.save
+        #format.html { redirect_to @cite, notice: 'Cite was successfully created.' }
+        format.json { render json: @cite, status: :created, location: @cite }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @cite.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /cites/1
+  # PUT /cites/1.json
+  def update
+    @cite = Cite.find(params[:id])
+
+    respond_to do |format|
+      if @cite.update_attributes(params[:cite])
+        format.html { redirect_to @cite, notice: 'Cite was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @cite.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /cites/1
+  # DELETE /cites/1.json
+  def destroy
+    
+    @cite = Cite.find(params[:id])
+    @cite.destroy
+    
+    
+    
+
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
+end

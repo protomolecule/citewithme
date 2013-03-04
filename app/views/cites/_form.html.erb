@@ -1,0 +1,8 @@
+<div id="cwm-textareadiv" class="span3">
+<%= form_for(@cite, :remote => true) do |g| %>
+<span class="ajax_message">&nbsp;</span><br>	
+    <%= g.text_area :content,  :class => "span12 well", :id => "mytextarea", :cols => 10, :rows => 60 %>
+    <%= g.hidden_field :sauce_id, :value => 1 %> - <%= g.hidden_field :page, :value => "No Page" %>
+    
+<% end %>
+</div>
