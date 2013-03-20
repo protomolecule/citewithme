@@ -25,7 +25,15 @@ class CitesController < ApplicationController
   end
 
   def hashtagindex
+    @hashtag = params[:search]
     @cites = Cite.search params[:search]
+    # Container for sources that are sited in the search result
+    @sources_cited = []
+    # Add sources to container 
+    @cites.each do |c|
+      @sources_cited.push(Sauce.find(c.sauce_id)).uniq!
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @cites }

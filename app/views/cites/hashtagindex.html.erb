@@ -1,13 +1,44 @@
-<div id="foo" class="span5 ">
+<div class="row-fluid cwmcont">
+ <div class="row">
+	<div id="cwm-sidebar" class="span3 swell">
+		
+		<p class="lead">Current hashtag:</p>
+	<p class="lead"><b> <%= @hashtag %></p>
+
+	<p>Sources cited:</p>
+	  <ul>
+	<% @sources_cited.each do |sauce| %>
+
+	    <li><%= sauce.author %>(<%= sauce.year %>): <%= sauce.title %></li>
+
+	<% end %>
+	  </ul>		
+			
+	</div>  
 	
-		<% @cites.each do |cite| %>
-		<blockquote id="blockquote<%= cite.id %>" class="blockquotecite">
-			<p><%= cite.content %></p>
-			<small><%= cite.sauce.author %> (<%= cite.sauce.year %>), p. <%= cite.page %>.</small><span style="display: none; "><%= link_to 'Edit', edit_cite_path(cite) %> - <a href="/cites/<%= cite.id %>" data-confirm="Are you sure?" data-method="delete" data-remote="true" rel="nofollow" onclick="destroyblockquote('blockquote#blockquote<%= cite.id %>')">Destroy</a></span>
-		</blockquote>
-		<% end %>
+
+ 
+	<div id="foo2" class="span8 ">
+
+			<% @cites.each do |cite| %>
+			<blockquote id="blockquote<%= cite.id %>" class="blockquotecite">
+				<p><%= cite.content %></p>
+				<small><%= cite.sauce.author %> (<%= cite.sauce.year %>), p. <%= cite.page %>.</small><span style="display: none; "><%= link_to 'Edit', edit_cite_path(cite) %> - <a href="/cites/<%= cite.id %>" data-confirm="Are you sure?" data-method="delete" data-remote="true" rel="nofollow" onclick="destroyblockquote('blockquote#blockquote<%= cite.id %>')">Destroy</a></span>
+			</blockquote>
+			<% end %>
+
+	</div>
 	
+		
 </div>
+<br>
+    </div>   
+
+
+
+
+
+
 
 <script>
 var hashtag_regexp = /#([a-züöäÜÖÄßA-Z0-9_]+)/g;

@@ -107,6 +107,10 @@ div#foo {
 	margin-left:620px;
 }
 
+div#foo2 {
+	margin-left:340px;
+}
+
 footer {
 	background-color:black;
 	height:100px;
