@@ -12,10 +12,10 @@
 
 <% @sauces.each do |sauce| %>
   <tr>
-    <td><%= sauce.author %> (<%= sauce.cites.count %>)</td>
-    <td><%= sauce.title %></td>
+    <td><b><%= sauce.author %> (<%= sauce.cites.count %>)</b></td>
+    <td><a href="/sauces/show/<%= sauce.id %>"><%= sauce.title %></a></td>
     <td><%= sauce.year %></td>
-    <td><%= link_to 'Add cites', sauce %></td>
+    <td><%= link_to 'Add citations', sauce %></td>
     <td><%= link_to 'Edit', edit_sauce_path(sauce) %></td>
     <td><%= link_to 'Destroy', sauce, confirm: 'Are you sure?', method: :delete %></td>
   </tr>

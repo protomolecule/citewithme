@@ -22,6 +22,17 @@ class SaucesController < ApplicationController
       format.json { render json: @sauce }
     end
   end
+  
+  # GET /sauces/show/1
+  # GET /sauces/show/1.json
+  def show_only
+    @sauce = Sauce.find(params[:id])
+    @cites = @sauce.cites.reverse
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @cites }
+    end
+  end  
 
   # GET /sauces/new
   # GET /sauces/new.json
