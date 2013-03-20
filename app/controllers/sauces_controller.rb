@@ -16,7 +16,7 @@ class SaucesController < ApplicationController
     @sauce = Sauce.find(params[:id])
     @cites = @sauce.cites.reverse
     @cite = Cite.new(:sauce_id => @sauce.id)
-
+  # Das Verlinken der Hashtags erfolgt durch ein Javascript in der Datei sauces/show.html.erb
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @sauce }
