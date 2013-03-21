@@ -3,8 +3,8 @@ class SaucesController < ApplicationController
   # GET /sauces
   # GET /sauces.json
   def index
-    @sauces = Sauce.all
-
+    #@sauces = Sauce.where("user_id == ?", current_user)
+    @sauces = current_user.sauces
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @sauces }
@@ -14,7 +14,7 @@ class SaucesController < ApplicationController
   # GET /sauces/1
   # GET /sauces/1.json
   def show
-    @sauce = Sauce.find(params[:id])
+    @sauce = current_user.sauces.find(params[:id])
     @cites = @sauce.cites.reverse
     @cite = Cite.new(:sauce_id => @sauce.id)
   # Das Verlinken der Hashtags erfolgt durch ein Javascript in der Datei sauces/show.html.erb
@@ -27,7 +27,9 @@ class SaucesController < ApplicationController
   # GET /sauces/show/1
   # GET /sauces/show/1.json
   def show_only
-    @sauce = Sauce.find(params[:id])
+    #@sauce = Sauce.find(params[:id])
+    @sauce = current_user.sauces.find(params[:id])
+    
     @cites = @sauce.cites.reverse
     respond_to do |format|
       format.html # index.html.erb
@@ -36,7 +38,7 @@ class SaucesController < ApplicationController
   end  
 
   def show_only_search
-    @sauce = Sauce.find(params[:s_search])
+    @sauce = current_user.sauces.find(params[:s_search])
     searchstring = "%"+ params[:s_string] +"%"
     @hashtag = params[:s_string]
     @cites = @sauce.cites.where("content like ?",searchstring)
@@ -56,13 +58,13 @@ class SaucesController < ApplicationController
 
   # GET /sauces/1/edit
   def edit
-    @sauce = Sauce.find(params[:id])
+    @sauce = current_user.sauces.find(params[:id])
   end
 
   # POST /sauces
   # POST /sauces.json
   def create
-    @sauce = Sauce.new(params[:sauce])
+    @sauce = current_user.sauces.new(params[:sauce])
 
     respond_to do |format|
       if @sauce.save
@@ -78,7 +80,7 @@ class SaucesController < ApplicationController
   # PUT /sauces/1
   # PUT /sauces/1.json
   def update
-    @sauce = Sauce.find(params[:id])
+    @sauce = current_user.sauces.find(params[:id])
 
     respond_to do |format|
       if @sauce.update_attributes(params[:sauce])
@@ -94,7 +96,7 @@ class SaucesController < ApplicationController
   # DELETE /sauces/1
   # DELETE /sauces/1.json
   def destroy
-    @sauce = Sauce.find(params[:id])
+    @sauce = current_user.sauces.find(params[:id])
     @sauce.destroy
 
     respond_to do |format|

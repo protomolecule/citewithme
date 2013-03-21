@@ -3,7 +3,7 @@ class CitesController < ApplicationController
   # GET /cites
   # GET /cites.json
   def index
-    @cites = Cite.all.reverse
+    @cites = current_user.cites.all.reverse
     @cite = Cite.new
     @myvar = "That's how it works:"
     @hashtags = []
@@ -33,7 +33,9 @@ class CitesController < ApplicationController
       @ashtag = '%23' + @ashtag[1..-1]
     end  
     #actual search:
-    @cites = Cite.search params[:search]
+    @cites = Cite.search(params[:search], current_user)
+  
+    #Cite.where(['content LIKE ? AND  == ?', search_condition, ])
     # Container for sources that are sited in the search result
     @sources_cited = []
     # Add sources to container 
@@ -52,7 +54,7 @@ class CitesController < ApplicationController
   # GET /cites/1
   # GET /cites/1.json
   def show
-    @cite = Cite.find(params[:id])
+    @cite = current_user.cites.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -92,7 +94,7 @@ class CitesController < ApplicationController
   
   # GET /cites/1/edit
   def edit
-    @cite = Cite.find(params[:id])
+    @cite = current_user.cites.find(params[:id])
   end
 
   # POST /cites
@@ -114,7 +116,7 @@ class CitesController < ApplicationController
   # PUT /cites/1
   # PUT /cites/1.json
   def update
-    @cite = Cite.find(params[:id])
+    @cite = current_user.cites.find(params[:id])
 
     respond_to do |format|
       if @cite.update_attributes(params[:cite])
@@ -131,7 +133,7 @@ class CitesController < ApplicationController
   # DELETE /cites/1.json
   def destroy
     
-    @cite = Cite.find(params[:id])
+    @cite = current_user.cites.find(params[:id])
     @cite.destroy
     
     
