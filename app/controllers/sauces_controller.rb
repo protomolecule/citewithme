@@ -1,4 +1,5 @@
 class SaucesController < ApplicationController
+
   # GET /sauces
   # GET /sauces.json
   def index
