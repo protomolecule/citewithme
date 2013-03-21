@@ -6,9 +6,13 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+# Admin Frontend
 gem 'activeadmin'
 gem "meta_search",    '>= 1.1.0.pre'
+# User Managegemt
 gem 'devise'
+# jquery integration
+gem 'jquery-rails'
 #gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git'
 #gem 'devise'
 
@@ -24,7 +28,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
