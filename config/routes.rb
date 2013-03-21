@@ -2,6 +2,7 @@ Cwm::Application.routes.draw do
   root :to => redirect("/sauces")
   match "cites/search" => 'cites#hashtagindex'
   match "sauces/show/:id" => 'sauces#show_only'
+  match "sauces/show_search" => 'sauces#show_only_search'
   resources :sauces
   resources :cites
   

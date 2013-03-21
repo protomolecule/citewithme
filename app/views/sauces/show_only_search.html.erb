@@ -3,17 +3,12 @@
 	<div id="cwm-sidebar" class="span3 swell">
 		
 		<p class="lead">Results for:</p>
-	<p class="lead"><b> <%= @hashtag %></p>
-	
-	<p>Show results for <%= @hashtag %> from source:</p>
-	  <ul>
-	<% @sources_cited.each do |sauce| %>
+	<p><b><%= @sauce.author %></b>(<%= @sauce.year %>): <%= @sauce.title %></p>
+	<p class="lead">and:</p>
+	<p class="lead"><b> <%= @hashtag %></b></p>
+	<p><%= link_to_function "Go back", "history.back()" %> or <%= link_to 'add citations to this source', @sauce %></p>
 
-	    <li><a href="/sauces/show_search?s_search=<%= sauce.id %>&s_string=<%= @ashtag %>"><%= sauce.author %>(<%= sauce.year %>): <%= sauce.title %></a>
-		</li>
 
-	<% end %>
-	  </ul>
 			
 	</div>  
 	

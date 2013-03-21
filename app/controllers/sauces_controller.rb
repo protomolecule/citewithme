@@ -34,6 +34,14 @@ class SaucesController < ApplicationController
     end
   end  
 
+  def show_only_search
+    @sauce = Sauce.find(params[:s_search])
+    searchstring = "%"+ params[:s_string] +"%"
+    @hashtag = params[:s_string]
+    @cites = @sauce.cites.where("content like ?",searchstring)
+  end  
+
+
   # GET /sauces/new
   # GET /sauces/new.json
   def new

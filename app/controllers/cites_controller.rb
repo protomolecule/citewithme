@@ -25,7 +25,14 @@ class CitesController < ApplicationController
   end
 
   def hashtagindex
+    # Variable for the search string
     @hashtag = params[:search]
+    # Fills variable with %23hashtag instead of #hashtag for URLs
+    @ashtag = @hashtag
+    if @ashtag.start_with?("#")
+      @ashtag = '%23' + @ashtag[1..-1]
+    end  
+    #actual search:
     @cites = Cite.search params[:search]
     # Container for sources that are sited in the search result
     @sources_cited = []
@@ -34,12 +41,13 @@ class CitesController < ApplicationController
       @sources_cited.push(Sauce.find(c.sauce_id)).uniq!
     end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @cites }
-    end
-  end
-    
+#    respond_to do |format|
+#      format.html # index.html.erb
+#      format.json { render json: @cites }
+#    end
+  end    
+  
+   
 
   # GET /cites/1
   # GET /cites/1.json
