@@ -65,7 +65,7 @@ class CitesController < ApplicationController
   # GET /cites/new
   # GET /cites/new.json
   def new
-    @cite = Cite.new
+    @cite = Cite.new(:user_id => current_user)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -76,7 +76,7 @@ class CitesController < ApplicationController
   # Nach Tutorial:
 
   def ajaxcreate  
-    @cite = Cite.new(params[:cite])
+    @cite = current_user.cites.new(params[:cite], :user_id => current_user)
     
     # Irgendwie muss die neue ID zurück geschickt werden!!!
     
@@ -100,7 +100,7 @@ class CitesController < ApplicationController
   # POST /cites
   # POST /cites.json
   def create
-    @cite = Cite.new(params[:cite])
+    @cite = current_user.cites.new(params[:cite])
 
     respond_to do |format|
       if @cite.save
