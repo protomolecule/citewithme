@@ -1,0 +1,8 @@
+// substitutes every hashtag that is inside of a blockquote with a link to its search results
+function linkHashtags(text) {
+	var hashtag_regexp = /#([a-züöäÜÖÄßA-Z0-9_]+)/g;
+    return text.replace(
+        hashtag_regexp,
+        '<a class="hashtag" href="/cites/search?search=%23$1">#$1</a>'
+    );
+}

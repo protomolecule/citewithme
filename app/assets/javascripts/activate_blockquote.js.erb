@@ -1,0 +1,10 @@
+// blockquote behaviour
+function activate_blockquote(){
+$("blockquote").mouseover(function() {
+    	$(this).find("span").show();
+		$(this).addClass("blockquoteactive")
+  }).mouseout(function(){
+    	$(this).find("span").hide();
+		$(this).removeClass("blockquoteactive")
+});
+};

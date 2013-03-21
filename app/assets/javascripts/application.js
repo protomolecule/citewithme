@@ -12,13 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require activate_blockquote
 //= require_tree .
 
 
-function scrollfoodown (){
-var objDiv = document.getElementById("foo");
-objDiv.scrollTop = objDiv.scrollHeight;
-}
+
 
 
 

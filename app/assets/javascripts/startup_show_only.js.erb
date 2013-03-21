@@ -1,0 +1,11 @@
+function startup_show_only () {
+
+	activate_blockquote();
+
+	$('#foo').ready(function(){
+	    $('blockquote>p').each(function() {
+	        $(this).html(linkHashtags($(this).html()));
+	    });
+	});	
+	
+};

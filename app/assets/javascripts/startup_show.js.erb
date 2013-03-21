@@ -1,0 +1,27 @@
+function startup_show (authoryear) {
+
+	activate_blockquote();
+
+	$('#mytextarea').keypress(function(e){
+		  if(e.keyCode == 13 && !e.shiftKey) {
+		   e.preventDefault();
+
+		   scrollfoodown ();
+		  
+		   getnewcite(authoryear);		
+			$(this).val('');
+		  }
+		});	
+
+	$('#mytextarea').focus(function() {
+	  scrollfoodown ();
+	});
+
+	$('#foo').ready(function(){
+	    $('blockquote>p').each(function() {
+	        $(this).html(linkHashtags($(this).html()));
+	    });
+	});	
+	
+};
+

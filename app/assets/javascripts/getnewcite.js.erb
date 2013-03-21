@@ -1,0 +1,64 @@
+function getnewcite (authoryear) {
+	var page_regexp = /\^([a-züöäÜÖÄßA-Z0-9_-]+)/g;
+	var amyglob = ""
+	$('span.ajax_message').html('saving...');
+var mytextareaval = $('textarea#mytextarea').val().replace(/\n\r?/g, '<br />');
+var mysauce = authoryear;
+
+//var mypage = $("input#cite_page").val();
+//var mypagearray = [666]
+var mypagearray = []
+var mypage = ""
+var Ergebnis = $('textarea#mytextarea').val().match(page_regexp);
+if(Ergebnis){
+	mypagearray = $('textarea#mytextarea').val().match(page_regexp);
+}else{
+	mypagearray[0] = "N.N"
+}
+// Wenn mehr als eine Fundstelle:
+if (mypagearray.length >1){
+	//Cycle durch den Array und hänge Werte + ", " an.
+	mypagearray.forEach( function(s) { 
+		mypage += s + ", "
+		} )
+		// Entferne die ^
+		mypage = mypage.replace(/\^/g, '');
+		// Entferne das letzte ", "
+		mypage = mypage.slice(0, -2)
+}else{
+	// Wenn nur eine Fundstelle: Entferne das ^
+	mypage = mypagearray[mypagearray.length-1].replace(/\^/g, '');}
+
+
+	mytextareaval = mytextareaval.replace(page_regexp, '')
+// repopulate the form fields...
+	$("input#cite_page").val(mypage);
+	var newtextareaval = $('textarea#mytextarea').val().replace(page_regexp, '')
+	$('textarea#mytextarea').val(newtextareaval)
+
+	$.ajax({
+	    type: 'POST',
+	    url: "/cites",
+	async: false,
+	    data: $('form').serialize(),
+		dataType: "json",
+	    complete: function(data){
+		var temp = JSON.parse(data.responseText);
+		amyglob = temp.id;
+		  $('span.ajax_message').html("");
+		  // Hier sollte ich die ID abfragen, die aus dem controller zurück kommen...
+		//Zuweisung klappt noch nicht. Manchmal scheinbar schon, manchmal nicht...
+		amyglob = temp.id;
+		amyglob = temp.id;
+	    },		       
+	    });
+
+
+
+var newcite = "<blockquote id='blockquote" + amyglob + "' class='blockquotecite'><p>" + mytextareaval + "</p>" + "<small>" + mysauce + ", p. " + mypage + ".</small><span style='display: none;' ><a href='/cites/" + amyglob + "/edit''>Edit</a> - <a href='/cites/" + amyglob + "'  data-method='delete' data-remote='true' rel='nofollow' onclick='destroyblockquote(this)'>Destroy</a></span></blockquote>";
+newcite = linkHashtags(newcite);
+$(newcite).prependTo("#foo");
+activate_blockquote();
+
+
+};

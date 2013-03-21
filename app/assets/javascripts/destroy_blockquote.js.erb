@@ -1,0 +1,9 @@
+// deletes blockquote from rendered page AND cite from database
+function destroyblockquote (bq) {
+	//Problem: Er macht das auch, wenn man den Löschdialog abbricht...
+	//Lösung: Den ganzen Ajax-Kram hier explizit ausformulieren und auf Ergebnis warten :-)
+	//$(bq).remove();
+	var hugo = $(bq).parent().parent();
+	hugo.remove();
+};
+
