@@ -1,5 +1,9 @@
 Cwm::Application.routes.draw do
-  root :to => redirect("/sauces")
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
+  root :to => "sauces#index"
   match "cites/search" => 'cites#hashtagindex'
   match "sauces/show/:id" => 'sauces#show_only'
   match "sauces/show_search" => 'sauces#show_only_search'
