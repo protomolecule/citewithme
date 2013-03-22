@@ -73,23 +73,19 @@ class CitesController < ApplicationController
     end
   end
 
-  # Nach Tutorial:
-
-  def ajaxcreate  
-    @cite = current_user.cites.new(params[:cite], :user_id => current_user)
-    
-    # Irgendwie muss die neue ID zurück geschickt werden!!!
-    
-    respond_to do |format|
-      if @cite.save
-        #format.html { redirect_to(cites_url, 
-        #              :notice => 'cite was successfully created.', :cite_id => @cite.id) }
-        #format.js
-      else
-        format.html { redirect_to(cites_url) }
-      end
-    end
-  end
+# Nach Tutorial:
+#  def ajaxcreate  
+#    @cite = current_user.cites.new(params[:cite], :user_id => current_user)
+#    
+#    # Irgendwie muss die neue ID zurück geschickt werden!!!
+#    
+#    respond_to do |format|
+#      if @cite.save
+#      else
+#        format.html { redirect_to(cites_url) }
+#      end
+#    end
+#  end
   
   
   # GET /cites/1/edit
