@@ -1,11 +1,11 @@
 <div class="row-fluid cwmcont">
  <div class="row">
+	<%= form_for(@cite) do |f| %>
 	<div id="cwm-sidebar" class="span3 swell">
 		
 		<p class="lead">Editing cite</p>
 
-		<p> <%= link_to 'Show', @cite %> |
-		<%= link_to 'Back', sauces_path+'/'+@cite.sauce_id %></p>
+		<%= link_to 'Cancel', sauces_path+'/'+@cite.sauce_id %> | <%= link_to 'Save', "#", :onclick=>"$('.edit_cite').submit()" %> </p>
 			
 	</div>  
 	
@@ -13,7 +13,7 @@
  
 	<div id="foo2" class="span8 ">
 
-		<%= form_for(@cite) do |f| %>
+		
 		  <% if @cite.errors.any? %>
 		    <div id="error_explanation">
 		      <h2><%= pluralize(@cite.errors.count, "error") %> prohibited this sauce from being saved:</h2>
@@ -29,13 +29,10 @@
 		  <div class="field">
 		    <%= f.text_area :content, :class => "span8" %>
 		  </div>
-		  <div class="actions">
-		    <%= f.submit %>
-		  </div>
-		<% end %>
 
 	</div>
 	
+	<% end %>
 		
 </div>
 <br>
