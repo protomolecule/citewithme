@@ -84,7 +84,7 @@ class SaucesController < ApplicationController
 
     respond_to do |format|
       if @sauce.update_attributes(params[:sauce])
-        format.html { redirect_to @sauce, notice: 'Sauce was successfully updated.' }
+        format.html { redirect_to "/sauces/", notice: 'Sauce was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
