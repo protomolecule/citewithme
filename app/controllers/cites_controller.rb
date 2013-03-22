@@ -116,7 +116,6 @@ class CitesController < ApplicationController
 
     respond_to do |format|
       if @cite.update_attributes(params[:cite])
-        format.html { redirect_to @cite, notice: 'Cite was successfully updated.' }
         backpath = "/sauces/" + @cite.sauce_id
 #        format.html { redirect_to @cite, notice: 'Cite was successfully updated.' }
         format.html { redirect_to backpath, notice: 'Cite was successfully updated.' }
