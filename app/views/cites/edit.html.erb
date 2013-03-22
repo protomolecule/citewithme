@@ -1,6 +1,42 @@
-<h1>Editing cite</h1>
+<div class="row-fluid cwmcont">
+ <div class="row">
+	<div id="cwm-sidebar" class="span3 swell">
+		
+		<p class="lead">Editing cite</p>
 
-<%= render 'form' %>
+		<p> <%= link_to 'Show', @cite %> |
+		<%= link_to 'Back', sauces_path+'/'+@cite.sauce_id %></p>
+			
+	</div>  
+	
 
-<%= link_to 'Show', @cite %> |
-<%= link_to 'Back', sauces_path+'/'+@cite.sauce_id %>
+ 
+	<div id="foo2" class="span8 ">
+
+		<%= form_for(@cite) do |f| %>
+		  <% if @cite.errors.any? %>
+		    <div id="error_explanation">
+		      <h2><%= pluralize(@cite.errors.count, "error") %> prohibited this sauce from being saved:</h2>
+
+		      <ul>
+		      <% @cite.errors.full_messages.each do |msg| %>
+		        <li><%= msg %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+
+		  <div class="field">
+		    <%= f.text_area :content, :class => "span8" %>
+		  </div>
+		  <div class="actions">
+		    <%= f.submit %>
+		  </div>
+		<% end %>
+
+	</div>
+	
+		
+</div>
+<br>
+    </div>   
