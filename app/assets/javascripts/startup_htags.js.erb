@@ -1,0 +1,7 @@
+function startup_htags () {
+	$('#htags_table').ready(function(){
+	    $('td').each(function() {
+	        $(this).html(linkHashtags($(this).html()));
+	    });
+	});
+};
