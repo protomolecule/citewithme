@@ -91,6 +91,7 @@ class CitesController < ApplicationController
   # GET /cites/1/edit
   def edit
     @cite = current_user.cites.find(params[:id])
+    @sauce = current_user.sauces.find(@cite.sauce_id)
   end
 
   # POST /cites

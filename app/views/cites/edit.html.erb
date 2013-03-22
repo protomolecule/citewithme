@@ -4,6 +4,13 @@
 	<div id="cwm-sidebar" class="span3 swell">
 		
 		<p class="lead">Editing cite</p>
+<b>Source: </b></br>
+<ul><li><%= @sauce.author %> (<%= @sauce.year %>): <%= @sauce.title %>	</li>
+	</ul>
+<p><div class="field">
+		   <b>Page:</b></br>
+		    <%= f.text_field :page %>
+		  </div></p>
 
 		<%= link_to 'Cancel', sauces_path+'/'+@cite.sauce_id %> | <%= link_to 'Save', "#", :onclick=>"$('.edit_cite').submit()" %> </p>
 			
