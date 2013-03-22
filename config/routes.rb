@@ -9,6 +9,7 @@ Cwm::Application.routes.draw do
   match "cites/search" => 'cites#hashtagindex'
   match "sauces/show/:id" => 'sauces#show_only'
   match "sauces/show_search" => 'sauces#show_only_search'
+  match "createcites" => "cites#createcites"
   resources :sauces
   resources :cites
   

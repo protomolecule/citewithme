@@ -96,19 +96,19 @@ class CitesController < ApplicationController
 
   # POST /cites
   # POST /cites.json
-  def create
-    @cite = current_user.cites.new(params[:cite])
+  #def create
+  #  @cite = current_user.cites.new(params[:cite])
 
-    respond_to do |format|
-      if @cite.save
-        #format.html { redirect_to @cite, notice: 'Cite was successfully created.' }
-        format.json { render json: @cite, status: :created, location: @cite }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @cite.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+   # respond_to do |format|
+    #  if @cite.save
+     #   #format.html { redirect_to @cite, notice: 'Cite was successfully created.' }
+      #  format.json { render json: @cite, status: :created, location: @cite }
+      #else
+       # format.html { render action: "new" }
+        #format.json { render json: @cite.errors, status: :unprocessable_entity }
+    #  end
+    #end
+#  end
 
   # PUT /cites/1
   # PUT /cites/1.json
@@ -141,4 +141,19 @@ class CitesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET /createcites
+  def createcites
+    @cite = current_user.cites.new(params[:cite])
+
+    respond_to do |format|
+      if @cite.save
+        format.json { render json: @cite, status: :created } 
+      else
+        format.html { render action: "new" }
+        format.json { render json: @cite.errors, status: :unprocessable_entity }
+      end
+    end
+  end  
+  
 end

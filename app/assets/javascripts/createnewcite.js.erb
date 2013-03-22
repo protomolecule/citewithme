@@ -1,6 +1,6 @@
-function getnewcite (authoryear) {
+function createnewcite (authoryear) {
 	var page_regexp = /\^([a-züöäÜÖÄßA-Z0-9_-]+)/g;
-	var amyglob = ""
+//	var amyglob = ""
 	$('span.ajax_message').html('saving...');
 var mytextareaval = $('textarea#mytextarea').val().replace(/\n\r?/g, '<br />');
 var mysauce = authoryear;
@@ -37,28 +37,26 @@ if (mypagearray.length >1){
 	$('textarea#mytextarea').val(newtextareaval)
 
 	$.ajax({
-	    type: 'POST',
-	    url: "/cites",
-	async: false,
+	    type: 'GET',
+	    url: "/createcites",
 	    data: $('form').serialize(),
 		dataType: "json",
 	    complete: function(data){
 		var temp = JSON.parse(data.responseText);
-		amyglob = temp.id;
-		  $('span.ajax_message').html("");
-		  // Hier sollte ich die ID abfragen, die aus dem controller zurück kommen...
-		//Zuweisung klappt noch nicht. Manchmal scheinbar schon, manchmal nicht...
-		amyglob = temp.id;
-		amyglob = temp.id;
-	    },		       
-	    });
+		// empty ajax_message field
+		$('span.ajax_message').html("");
+			// temp.id stores the id of the new cite object 
+			var newcite = "<blockquote id='blockquote" + temp.id + "' class='blockquotecite'><p>" + mytextareaval + "</p>" + "<small>" + mysauce + ", p. " + mypage + ".</small><span style='display: none;' ><a href='/cites/" + temp.id + "/edit''>Edit</a> - <a href='/cites/" + temp.id + "'  data-method='delete' data-remote='true' rel='nofollow' onclick='destroyblockquote(this)'>Destroy</a></span></blockquote>";
+			newcite = linkHashtags(newcite);
+			$(newcite).prependTo("#foo");
+			activate_blockquote();
+		},	
+			       
+	});
 
 
 
-var newcite = "<blockquote id='blockquote" + amyglob + "' class='blockquotecite'><p>" + mytextareaval + "</p>" + "<small>" + mysauce + ", p. " + mypage + ".</small><span style='display: none;' ><a href='/cites/" + amyglob + "/edit''>Edit</a> - <a href='/cites/" + amyglob + "'  data-method='delete' data-remote='true' rel='nofollow' onclick='destroyblockquote(this)'>Destroy</a></span></blockquote>";
-newcite = linkHashtags(newcite);
-$(newcite).prependTo("#foo");
-activate_blockquote();
+
 
 
 };

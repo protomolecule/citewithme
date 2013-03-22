@@ -13,6 +13,9 @@ gem "meta_search",    '>= 1.1.0.pre'
 gem 'devise'
 # jquery integration
 gem 'jquery-rails'
+# JSON Lib
+gem 'json'
+ 
 #gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git'
 #gem 'devise'
 
