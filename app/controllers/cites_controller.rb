@@ -180,7 +180,7 @@ class CitesController < ApplicationController
     #my_cites = current_user.cites.where("sauce_id == ?", params[:id])
     #flash.now[:alert] = 'Error while sending message!'
     my_sauce = current_user.sauces.find(params[:id])
-    data = "Source: " + my_sauce.author + " (" + my_sauce.year + "): " + my_sauce.title + "\n\n"
+    data = "Source: " + my_sauce.author + " (" + my_sauce.year + "): " + my_sauce.title + ".\n\n"
     my_cites = current_user.cites.where("sauce_id == ?", my_sauce.id)
     my_cites.each do |c|
       data += c.page + ":\n\n" + c.content + "\n\n"
@@ -197,5 +197,63 @@ class CitesController < ApplicationController
      # format.html { # blahblah render }
     #end
   end
+
+  def create_file_by_hashtag
+    #my_cites = current_user.cites.where("sauce_id == ?", params[:id])
+    #flash.now[:alert] = 'Error while sending message!'
+    #my_sauce = current_user.sauces.find(params[:id])
+    data = "Hashtag: " + params[:search] + "\n\n"
+    my_cites = Cite.search(params[:search], current_user)
+    all_sauces = []
+    my_cites.each do |c|
+      s = current_user.sauces.find(c.sauce_id)
+      all_sauces.push(s.id).uniq!
+      data += c.content + "\n- " + s.author + " (" + s.year + "), p. " + c.page + "\n\n"   
+    end 
+    data += "Sources: \n\n"
+    all_sauces.each do |as|
+      this_sauce = current_user.sauces.find(as)
+      data += this_sauce.author + " (" + this_sauce.year + "): " + this_sauce.title + ".\n\n"
+    end
+    dispo = "attachment; filename=" + params[:search] + "_" + "citations.txt"
+    send_data(data,
+        :type => 'text; charset=utf-8; header=present',
+        :disposition => dispo,
+        :head => 'ok'
+      )
+  
+
+    #respond_to do |format|
+     # format.html { # blahblah render }
+    #end
+  end  
+
+  def create_file_by_hashtag_and_sauce
+    #my_cites = current_user.cites.where("sauce_id == ?", params[:id])
+    #flash.now[:alert] = 'Error while sending message!'
+    #my_sauce = current_user.sauces.find(params[:id])
+    my_hashtag = params[:search]
+    my_search = "%" + my_hashtag + "%"
+    my_sauce = current_user.sauces.find(params[:source])
+    data = "Hashtag: " + my_hashtag + "\n\n"
+    data += "Source: " + my_sauce.author + " (" + my_sauce.year + "): " + my_sauce.title + ".\n\n"
+    my_cites = current_user.cites.where("content LIKE ? AND sauce_id == ?", my_search, my_sauce.id)
+#    my_cites = my_sauce.cites.where("content like ?", params[:search])    
+    my_cites.each do |c|
+      data += c.content + "\n- " + my_sauce.author + " (" + my_sauce.year + "), p. " + c.page + "\n\n" 
+    end 
+    dispo = "attachment; filename=" + my_hashtag + "_" + my_sauce.author + "_" + "citations.txt"
+    send_data(data,
+        :type => 'text; charset=utf-8; header=present',
+        :disposition => dispo,
+        :head => 'ok'
+      )
+  
+
+    #respond_to do |format|
+     # format.html { # blahblah render }
+    #end
+  end  
+
   
 end

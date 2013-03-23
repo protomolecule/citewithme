@@ -11,7 +11,10 @@ Cwm::Application.routes.draw do
   match "sauces/show_search" => 'sauces#show_only_search'
   match "createcites" => "cites#createcites"
   match "htags" => "htags#index"
-  match "cites/create_file_by_sauce" => 'cites#create_file_by_sauce'  
+  match "cites/create_file_by_sauce" => 'cites#create_file_by_sauce'
+  match "cites/create_file_by_hashtag" => 'cites#create_file_by_hashtag'  
+  match "cites/create_file_by_hashtag_and_sauce" => 'cites#create_file_by_hashtag_and_sauce'  
+    
   resources :sauces
   resources :cites
   
