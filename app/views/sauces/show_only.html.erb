@@ -5,6 +5,9 @@
 		<p class="lead">Results for:</p>
 	<p><b><%= @sauce.author %></b>(<%= @sauce.year %>): <%= @sauce.title %></p>
 	<p><%= link_to_function "Go back", "history.back()" %> or <%= link_to 'add citations to this source', @sauce %></p>
+	<p>
+		<%= link_to "Download citations", :controller => "cites", :action => "create_file_by_sauce", :id => @sauce.id %>
+	</p>
 
 
 			

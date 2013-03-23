@@ -10,7 +10,8 @@ Cwm::Application.routes.draw do
   match "sauces/show/:id" => 'sauces#show_only'
   match "sauces/show_search" => 'sauces#show_only_search'
   match "createcites" => "cites#createcites"
-  match "htags" => "htags#index"  
+  match "htags" => "htags#index"
+  match "cites/create_file_by_sauce" => 'cites#create_file_by_sauce'  
   resources :sauces
   resources :cites
   

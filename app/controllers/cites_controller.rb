@@ -176,4 +176,26 @@ class CitesController < ApplicationController
     end
   end  
   
+  def create_file_by_sauce
+    #my_cites = current_user.cites.where("sauce_id == ?", params[:id])
+    #flash.now[:alert] = 'Error while sending message!'
+    my_sauce = current_user.sauces.find(params[:id])
+    data = "Source: " + my_sauce.author + " (" + my_sauce.year + "): " + my_sauce.title + "\n\n"
+    my_cites = current_user.cites.where("sauce_id == ?", my_sauce.id)
+    my_cites.each do |c|
+      data += c.page + ":\n\n" + c.content + "\n\n"
+    end 
+    dispo = "attachment; filename="+ my_sauce.author + "_" + my_sauce.year + "_" + "citations.txt"
+    send_data(data,
+        :type => 'text; charset=utf-8; header=present',
+        :disposition => dispo,
+        :head => 'ok'
+      )
+  
+
+    #respond_to do |format|
+     # format.html { # blahblah render }
+    #end
+  end
+  
 end
