@@ -118,6 +118,16 @@ class CitesController < ApplicationController
     respond_to do |format|
       if @cite.update_attributes(params[:cite])
         backpath = "/sauces/" + @cite.sauce_id
+            if @cite.content.include?("#")  
+            @hts = @cite.content.scan(/#([a-züöäÜÖÄßA-Z0-9_-]+)/).flatten 
+            @hts.each do |h|
+              h = "\#" + h
+        #      f = Htag.new(:name => h, :user_id => current_user)
+        #      f = current_user.htags.where(:name => h).first_or_create
+              f = current_user.htags.find_or_create_by_name(h)
+             # f.save
+            end  
+            end
         format.html { redirect_to backpath, notice: 'Cite was successfully updated.' }
         format.json { head :no_content }
       else
@@ -145,9 +155,19 @@ class CitesController < ApplicationController
   # GET /createcites
   def createcites
     @cite = current_user.cites.new(params[:cite])
-
+    if @cite.content.include?("#")  
+    @hts = @cite.content.scan(/#([a-züöäÜÖÄßA-Z0-9_-]+)/).flatten 
+    @hts.each do |h|
+      h = "\#" + h
+#      f = Htag.new(:name => h, :user_id => current_user)
+#      f = current_user.htags.where(:name => h).first_or_create
+      f = current_user.htags.find_or_create_by_name(h)
+     # f.save
+    end  
+    end
     respond_to do |format|
       if @cite.save
+        
         format.json { render json: @cite, status: :created } 
       else
         format.html { render action: "new" }
