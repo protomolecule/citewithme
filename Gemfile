@@ -17,6 +17,8 @@ gem 'jquery-rails'
 gem 'json'
 # Google books API
 gem 'googlebooks'
+# Pagination
+gem 'will_paginate', '~> 3.0'
 
  
 #gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git'
