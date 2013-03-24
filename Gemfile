@@ -15,6 +15,9 @@ gem 'devise'
 gem 'jquery-rails'
 # JSON Lib
 gem 'json'
+# Google books API
+gem 'googlebooks'
+
  
 #gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git'
 #gem 'devise'

@@ -76,6 +76,8 @@ class SaucesController < ApplicationController
       end
     end
   end
+  
+
 
   # PUT /sauces/1
   # PUT /sauces/1.json
@@ -104,4 +106,36 @@ class SaucesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # Searches in Google Books 
+  def import_google_books
+    if params[:search]  
+    search_string = params[:search]
+          if params[:searchfield]
+            search_string = params[:searchfield] + search_string
+          end
+    @books = GoogleBooks.search(search_string, {:count => 20})  
+    @search_string = params[:search]
+    end  
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
+  # creates from import link
+  def create_from_google
+    google_id = params[:id]   
+    @sauce = current_user.sauces.new(:author => params[:author], :title => params[:title], :year => params[:year])
+
+    respond_to do |format|
+      if @sauce.save
+        format.html { redirect_to  "/sauces/", notice: 'Sauce was successfully created.' }
+        format.json { render json: @sauce, status: :created, location: @sauce }
+      else
+        format.html { render action: "index" }
+        format.json { render json: @sauce.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
 end

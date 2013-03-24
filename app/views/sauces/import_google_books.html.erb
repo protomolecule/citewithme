@@ -1,0 +1,102 @@
+
+
+
+
+
+
+<div class="row-fluid cwmcont">
+ <div class="row">
+	<div id="cwm-sidebar" class="span3 swell">
+	<p class="lead">Import from Google books</p>
+		
+		<form class="search_form" accept-charset="UTF-8" action="#" method="get">
+			<input id="search" class="" name="search" type="text" placeholder="search" value="<%= @search_string %>" />
+			<select name="searchfield">
+			  <option value="">any field</option>
+			  <option value="inauthor:">author</option>
+			  <option value="intitle:">title</option>
+			  <option value="isbn:">isbn</option>
+			</select>    
+			<%= button_to 'Search', "#", :onclick=>"$('.search_form').submit()" %>
+		</form>	
+	</div>  
+	
+	<div id="foo2" class="span8">
+		<%if @books %>
+		<table class="table table-bordered table-striped">
+		  <tr>
+			<th>Cover</th>
+		    <th id="author_header">Author</th>
+		    <th id="title_header">Title</th>
+		    <th id="year_header">Year</th>
+		    <th></th>
+		  </tr>
+		
+		<% @books.each do |b| %>
+		  <tr>
+			<td>
+			<% if b.image_link %>
+			<%= image_tag(b.image_link(:curl => false)) %>
+			<% end %>
+			</td>
+			<td style="vertical-align:top!important;"><%= b.authors rescue "unknown"  %></td>
+			<td style="vertical-align:top!important;"><%= b.title rescue "unknown" %></td>
+			<td style="vertical-align:top!important;"><%= b.published_date[0..3] rescue "unknown" %></td>
+			<td style="vertical-align:top!important; width: 30%">  
+				<%= link_to "import", :confirm => "Are you sure?", :controller => "sauces", :action => "create_from_google", :id => b.id, :author => b.authors, :title => b.title, :year => b.published_date[0..3] rescue nil %> | <%= link_to "view at google", "http://books.google.de/books?id=" + b.id, :target => "_blank"  %>
+				</td>
+			<% end %>
+		<%else%>
+no results (yet)
+		<% end %>	
+
+		</tr>
+	</table>	
+		
+		
+		
+	</div>	
+		
+</div>
+<br>
+    </div>   
+
+	<script>
+
+	var table = $('table');
+	$('#author_header, #title_header, #year_header')
+	    .wrapInner('<span title="sort this column"/>')
+	    .each(function(){
+
+	        var th = $(this),
+	            thIndex = th.index(),
+	            inverse = false;
+
+	        th.click(function(){
+
+	            table.find('td').filter(function(){
+
+	                return $(this).index() === thIndex;
+
+	            }).sortElements(function(a, b){
+
+	                if( $.text([a]) == $.text([b]) )
+	                    return 0;
+
+	                return $.text([a]) > $.text([b]) ?
+	                    inverse ? -1 : 1
+	                    : inverse ? 1 : -1;
+
+	            }, function(){
+
+	                // parentNode is the element we want to move
+	                return this.parentNode; 
+
+	            });
+
+	            inverse = !inverse;
+
+	        });
+
+	    });
+	</script>
