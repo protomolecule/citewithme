@@ -46,7 +46,6 @@
 				<%= link_to "import", :confirm => "Are you sure?", :controller => "sauces", :action => "create_from_google", :id => b.id, :author => b.authors, :title => b.title, :year => b.published_date[0..3] rescue nil %> | <%= link_to "view at google", "http://books.google.de/books?id=" + b.id, :target => "_blank"  %>
 				</td>
 			<% end %>
-			
 		<%else%>
 no results (yet)
 		<% end %>	

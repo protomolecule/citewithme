@@ -17,11 +17,8 @@ gem 'jquery-rails'
 gem 'json'
 # Google books API
 gem 'googlebooks'
-# Pagination. Problem: 1. page ist schon attr von cite. 2. Musste bootstrap pagination ausschalten (lässt sich über views regeln)
-gem 'kaminari'
-# Search functionality
-gem 'sunspot_rails'
-gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
+# Pagination
+gem 'will_paginate', '~> 3.0'
 
  
 #gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git'

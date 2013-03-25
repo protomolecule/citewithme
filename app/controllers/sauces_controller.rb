@@ -4,7 +4,7 @@ class SaucesController < ApplicationController
   # GET /sauces.json
   def index
     #@sauces = Sauce.where("user_id == ?", current_user)
-    @sauces = current_user.sauces.order(:author) #.page params[:page]
+    @sauces = current_user.sauces
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @sauces }
@@ -30,7 +30,7 @@ class SaucesController < ApplicationController
     #@sauce = Sauce.find(params[:id])
     @sauce = current_user.sauces.find(params[:id])
     
-    @cites = @sauce.cites.reverse #.page(params[:page]).per(10) 
+    @cites = @sauce.cites.reverse
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @cites }
@@ -114,7 +114,7 @@ class SaucesController < ApplicationController
           if params[:searchfield]
             search_string = params[:searchfield] + search_string
           end
-    @books = GoogleBooks.search(search_string, {:count => 20})
+    @books = GoogleBooks.search(search_string, {:count => 20})  
     @search_string = params[:search]
     end  
     respond_to do |format|
