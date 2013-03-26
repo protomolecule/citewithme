@@ -19,6 +19,9 @@ gem 'json'
 gem 'googlebooks'
 # Pagination
 gem 'will_paginate', '~> 3.0'
+# Search Engine + DSL
+gem 'sunspot_rails'
+gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
 
  
 #gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git'
