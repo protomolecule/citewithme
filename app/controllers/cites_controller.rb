@@ -33,14 +33,8 @@ class CitesController < ApplicationController
       @ashtag = '%23' + @ashtag[1..-1]
     end  
     #actual search:
-    #@cites = Cite.search(params[:search], current_user)
-    term = params[:search]
-    my_search = Cite.solr_search() do
-      fulltext term  #params[:search]
-      with(:user_id, current_user.id)
-      #order_by :page, :desc
-    end
-    @cites = my_search.results
+    @cites = Cite.search(params[:search], current_user)
+  
     #Cite.where(['content LIKE ? AND  == ?', search_condition, ])
     # Container for sources that are sited in the search result
     @sources_cited = []
