@@ -13,6 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/grafik
 
 #ignore my personal doku
 doku.txt
