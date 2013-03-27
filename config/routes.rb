@@ -16,7 +16,7 @@ Cwm::Application.routes.draw do
   match "cites/create_file_by_hashtag_and_sauce" => 'cites#create_file_by_hashtag_and_sauce'
   match "sauces/import_google_books" => 'sauces#import_google_books'  
   match "sauces/create_from_google" => 'sauces#create_from_google'  
-  
+  match "about" => 'application#about'
   resources :sauces
   resources :cites
   

@@ -9,4 +9,12 @@ class ApplicationController < ActionController::Base
         # and so on..
       end
     end
+    
+    def about
+      respond_to do |format|
+        format.html { render :action => "about.html.erb" }
+        # and so on..
+      end
+      
+    end
 end
