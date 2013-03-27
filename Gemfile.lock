@@ -60,6 +60,10 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     erubis (2.7.0)
+    evernote-thrift (1.23.2)
+    evernote_oauth (0.1.8)
+      evernote-thrift
+      oauth (>= 0.4.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
     fastercsv (1.5.5)
@@ -96,6 +100,7 @@ GEM
     mime-types (1.19)
     multi_json (1.7.2)
     multi_xml (0.5.3)
+    oauth (0.4.7)
     orm_adapter (0.4.0)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
@@ -157,6 +162,7 @@ DEPENDENCIES
   activeadmin
   coffee-rails (~> 3.2.2)
   devise
+  evernote_oauth (~> 0.1.8)
   googlebooks
   jquery-rails
   json

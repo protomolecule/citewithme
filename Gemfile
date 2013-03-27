@@ -19,6 +19,10 @@ gem 'json'
 gem 'googlebooks'
 # Pagination
 gem 'will_paginate', '~> 3.0'
+# OAuth
+#gem 'omniauth-oauth'
+#gem 'omniauth-evernote'
+gem "evernote_oauth", "~> 0.1.8"
 
  
 #gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git'
