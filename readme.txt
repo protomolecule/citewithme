@@ -1,1 +1,3 @@
-readme
+README
+
+Readme text goes here
