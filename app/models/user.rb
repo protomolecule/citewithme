@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :sauces
   has_many :cites
   has_many :htags
+  has_one :google, :class_name=>"GoogleToken", :dependent=> :destroy 
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 end
