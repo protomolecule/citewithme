@@ -17,6 +17,7 @@ Cwm::Application.routes.draw do
   match "sauces/import_google_books" => 'sauces#import_google_books'  
   match "sauces/create_from_google" => 'sauces#create_from_google'  
   match "about" => 'application#about'
+  match "evernote_export" => 'evernote#evernote_export'
   resources :sauces
   resources :cites
   
