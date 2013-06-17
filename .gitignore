@@ -35,4 +35,5 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+config/evernote.yml
 >>>>>>> c0d11825ab890614d576bcb276cdc64d60a883c3
